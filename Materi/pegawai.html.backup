@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/css/bootstrap.min.css">
+    <script type="text/javascript" src="./scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./styles/js/bootstrap.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    Lembaran Pegawai
+    <br>
+    <button id="idBtnCreateNew" class="Btn btn-primary">Create New</button>
+    <br>
+    <!-- disini bagian tablenya -->
+    <div class="table-responsive">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Nama</td>
+                    <td>Alamat</td>
+                    <td>Jenis Kelamin</td>
+                    <td>Kota </td>
+                    <td>Email </td>
+                </tr>
+            </thead>
+            <tbody id="idTBodyPegawai">
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Modal form input baru -->
+    <!-- modal itu ditaruh paling bawah sebelum taging script -->
+    <div id="idModal1" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Form Input Baru</h4>
+                </div>
+                <div id="idMdlBody1" class="modal-body">
+                    <!-- akan ada injeksi string ke bagian body ini -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    <!-- modal form edit -->
+        <!-- modal itu ditaruh paling bawah sebelum taging script -->
+    <div id="idMdlEditPegawai" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Form Input Baru</h4>
+                </div>
+                <div id="idMdlBodyEditPegawai" class="modal-body">
+                    <!-- akan ada injeksi string ke bagian body ini -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    <script>
+        var vDataPegawai = [
+            { 'Nama': 'Fullan', 'Alamat': 'Jl.BeoNo.5', 'jns': true, 'Kota': 'Bekasi', 'Email': 'fullan@fullan.com' },
+            { 'Nama': 'Paiman', 'Alamat': 'Jl.AnggrekNo.29', 'jns': true, 'Kota': 'Tangerang', 'Email': 'fullan@fullan.com' },
+            { 'Nama': 'Paijo', 'Alamat': 'Jl.MawarNo.35', 'jns': false, 'Kota': 'Bandung', 'Email': 'fullan@fullan.com' }
+        ];
+        $(document).ready(function () {
+            var vJahitHtml = '';
+            var angka = 0;
+            var srtHtml = '   <form>' +
+                '               <div class="form-group">' +
+                '                   <label for="exampleInputEmail1">Nama</label>' +
+                '                   <input type="text" class="form-control" id="exampleInputNama1" placeholder="Nama">' +
+                '               </div>' +
+                '               <div class="form-group">' +
+                '                 <label for="exampleInputAlamat1">Alamat</label>' +
+                '                 <input type="text" class="form-control" id="exampleInputAlamat1" placeholder="Alamat">' +
+                '               </div>' +
+                '               <div class="form-group">' +
+                '                   <label for="exampleInputJenisKelamin1">Jenis Kelamin </label>' +
+                '                   <input type="text" class="form-control" id="exampleInputJenisKelamin1" placeholder="Jenis Kelamin">' +
+                '               </div>' +
+                '               <div class="form-group">' +
+                '                 <label for="exampleInputKota1">Kota</label>' +
+                '                 <input type="text" class="form-control" id="exampleInputKota1" placeholder="Kota">' +
+                '               </div>' +
+                '               <div class="form-group">' +
+                '                 <label for="exampleInputEmail">Email</label>' +
+                '                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">' +
+                '               </div>' +
+                '               </form>';
+            $.each(vDataPegawai, function (index, data) {
+                var vJns = '';
+                if (data.jns == true) {
+                    vJns = 'Laki-laki';
+                } else {
+                    vJns = 'Perempuan';
+                }
+                vJahitHtml = vJahitHtml + '<tr>' +
+                    '<td>' +
+                    (index + 1) +
+                    '</td>' +
+                    '<td>' +
+                    data.Nama +
+                    '</td>' +
+                    '<td>' +
+                    data.Alamat +
+                    '</td>' +
+                    '<td>' +
+                    vJns +
+                    '</td>' +
+                    '<td>' +
+                    data.Kota +
+                    '</td>' +
+                    '<td>' +
+                    data.Email +
+                    '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-primary">Detail</button>' +
+                    '<button class="btn btn-warning clBtnEditPegawai" data='+JSON.stringify(data)+'>Edit</button>' +
+                    '<button class="btn btn-danger">Delete</button>' +
+                    '</td>' +
+                    '</tr>';
+
+
+            })
+            //disini untuk apppend
+            $('#idTBodyPegawai').append(vJahitHtml);
+
+            $('#idBtnCreateNew').click(function () {
+                $('#idModal1').modal("show");
+                $('#idMdlBody1').append(srtHtml);
+            })
+
+            $('.clBtnEditPegawai').click(function () {
+                $('#idMdlBodyEditPegawai').empty();
+                var vData = JSON.parse($(this).attr('data'));
+                var srtHtml2 = '   <form>' +
+                '               <div class="form-group">' +
+                '                   <label for="exampleInputEmail1">Nama Pegawai<//label>' +
+                '                   <input type="text" class="form-control" id="idNamaPegawai" placeholder="Nama">' +
+                '               </div>' +
+                '               <div class="form-group">' +
+                '                 <label for="exampleInputAlamat1">Alamat</label>' +
+                '                 <input type="text" class="form-control" id="idAlamatPegawai" placeholder="Alamat">' +
+                '               </div>' +
+                '               <div class="form-group">' +
+                '                   <label for="exampleInputJenisKelamin1">Jenis Kelamin </label>' +
+                '                   <input type="text" class="form-control" id="exampleInputJenisKelamin1" placeholder="Jenis Kelamin">' +
+                '               </div>' +
+                '               <div class="form-group">' +
+                '                 <label for="exampleInputKota1">Kota</label>' +
+                '                 <input type="text" class="form-control" id="exampleInputKota1" placeholder="Kota">' +
+                '               </div>' +
+                '               <div class="form-group">' +
+                '                 <label for="exampleInputEmail">Email</label>' +
+                '                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email">' +
+                '               </div>' +
+                '               <button type="submit" class="btn btn-default">Submit</button>'+
+                '               </form>';
+                $('#idMdlBodyEditPegawai').append(strHtml2);
+                $('#idNamaPegawai').val(vData.nama);
+                $('#idMdlEditPegawai').modal('show');
+            })
+        })
+    </script>
+
+</body>
+
+</html>

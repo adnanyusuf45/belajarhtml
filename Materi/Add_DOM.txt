@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/css/bootstrap.min.css">
+    <script type="text/javascript" src="./scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="styles/js/bootstrap.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    Lembaran Pegawai
+    <br>
+    <button id="idBtnCreateNew" class="btn btn-primary">Create New</button>
+    <br>
+    <!-- disini bagian tablenya -->
+    <div class="table-responsive">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Nama</td>
+                    <td>Alamat</td>
+                    <td>Jenis Kelamin</td>
+                    <td>Kota</td>
+                    <td>Email</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody id="idTbodyPegawai">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var vDataPegawai = [
+            {'Nama':'Fullan','Alamat':'Jl. Beo No.5', 'Jns':true,'Kota':'Bekasi','Email':'fullan@fullan.com'},
+            {'Nama':'Paiman','Alamat':'Jl. Anggrek No.20', 'Jns':true,'Kota':'Tanggerang','Email':'fullan@fullan.com'},
+            {'Nama':'Paijo','Alamat':'Jl. Mawar No.35', 'Jns':false,'Kota':'Bandung','Email':'fullan@fullan.com'}
+        ];
+        $(document).ready(function () {
+            var vJahitHtml ='';
+
+            $.each(vDataPegawai, function (index, data) {
+                var vJns = '';
+                if (data.Jns==true) {
+                    vJns = 'Laki - laki';
+                } else {
+                    vJns = 'Perempuan';
+                }
+                vJahitHtml = vJahitHtml +   '<tr>'+
+                                        '<td>' +
+                                            (index+1) +
+                                        '</td>' +
+                                        '<td>' +
+                                            data.Nama +
+                                        '</td>' +
+                                        '<td>' +
+                                            data.Alamat +
+                                        '</td>' +
+                                        '<td>' +
+                                            vJns +
+                                        '</td>' +
+                                        '<td>' +
+                                        '</td>' +
+                                        '<td>' +
+                                        '</td>' +
+                                        '<td>' +
+                                            '<button class="btn btn-primary">Detail</button>'+
+                                            '<button class="btn btn-warning">Edit</button>'+
+                                            '<button class="btn btn-danger">Delete</button>'+
+                                        '</td>' +    
+                                    '</tr>';
+                                   
+
+            });
+            // disini untuk append
+            debugger;
+            $('#idTbodyPegawai').append(vJahitHtml);
+        });
+
+    </script>
+</body>
+
+</html>
